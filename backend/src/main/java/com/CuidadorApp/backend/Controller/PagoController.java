@@ -1,9 +1,7 @@
 package com.CuidadorApp.backend.Controller;
 
-
-
 import com.CuidadorApp.backend.Model.Pago;
-import com.CuidadorApp.backend.Repository.PagoRepository;
+import com.CuidadorApp.backend.service.PagoService; // Importamos el servicio
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,22 +10,23 @@ import java.util.List;
 @RequestMapping("/pagos")
 public class PagoController {
 
-    private final PagoRepository pagoRepository;
+    // Usaremos el Service en lugar del Repository directamente
+    private final PagoService pagoService;
 
-    public PagoController(PagoRepository pagoRepository) {
-        this.pagoRepository = pagoRepository;
+    public PagoController(PagoService pagoService) {
+        this.pagoService = pagoService;
     }
 
     @GetMapping
     public List<Pago> getAll() {
-        return pagoRepository.findAll();
+        // Aquí podrías agregar un método en el service para obtener todos
+        // o dejarlo así si solo es para consulta rápida
+        return pagoService.obtenerTodosLosPagos();
     }
 
     @PostMapping
     public Pago create(@RequestBody Pago pago) {
-        return pagoRepository.save(pago);
+        // ¡Aquí está la clave! Usamos el método que creamos en el Service
+        return pagoService.crearIntentoDePago(pago);
     }
-
-
 }
-
