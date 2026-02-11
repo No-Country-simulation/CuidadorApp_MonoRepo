@@ -1,4 +1,4 @@
-from app.extensions import db
+from app.extensions import db, bcrypt
 from app.models.usuario import Usuario
 
 def obtener_todos_usuarios():
@@ -33,9 +33,12 @@ def crear_usuario(datos):
     if obtener_usuario_por_email(datos["email"]):
         return {"error": "El email ya está registrado"}, 400
 
+    # Hashear la contraseña
+    password_hash = bcrypt.generate_password_hash(datos["password"]).decode('utf-8')
+
     usuario = Usuario(
         email=datos["email"],
-        password=datos["password"],  # TODO: hashear la contraseña
+        password=password_hash,
         rol=datos["rol"]
     )
     db.session.add(usuario)
@@ -50,7 +53,8 @@ def actualizar_usuario(id, datos):
     if datos.get("email"):
         usuario.email = datos["email"]
     if datos.get("password"):
-        usuario.password = datos["password"]  # TODO: hashear la contraseña
+        password_hash = bcrypt.generate_password_hash(datos["password"]).decode('utf-8')
+        usuario.password = password_hash
     if datos.get("rol"):
         usuario.rol = datos["rol"]
 
