@@ -1,0 +1,5 @@
+ID,Modulo,Escenario,Paso,Resultado esperado,Resultado obtenido,Estado,Navegador
+TC-FE-01,Home,Acceso a pantalla principal,Abrir http://localhost:3000/,Pantalla de bienvenida visible,Pantalla visible correctamente,Pass,Chrome
+TC-FE-02,Home,Acceso a pantalla principal,Abrir http://localhost:3000/,Pantalla de bienvenida visible,Pantalla visible correctamente,Pass,Firefox
+TC-FE-03,Home,Acceso a pantalla principal,Abrir http://localhost:3000/,Pantalla de bienvenida visible,Pantalla visible correctamente,Pass,Edge
+TC-FE-04,Consola,Errores JS,Abrir DevTools > Console,Sin errores JS,No se detectan errores,Pass,Chrome
